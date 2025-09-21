@@ -1,0 +1,26 @@
+<div class="sidebar bg-gray-100 h-screen w-64 p-4 shadow-lg">
+
+  <h1 class="text-xl font-bold mb-6"><a routerLink="/home"><fa-icon [icon]=faPerson ></fa-icon>{{ user?.username || user?.email || 'Guest' }}</a></h1>
+
+  <nav class="flex flex-col space-y-4">
+    <a routerLink="/mail" routerLinkActive="text-blue-600 font-semibold" class="flex items-center space-x-2">
+      <i class="bi bi-send"></i>
+      <span><fa-icon [icon]=faAdd class="p-2"></fa-icon>Compose</span>
+    </a>
+    <a routerLink="/inbox" routerLinkActive="text-blue-600 font-semibold" class="flex items-center space-x-2">
+      <span><fa-icon [icon]=faEnvelope [ngStyle]="{'color':'blue'}" /> Inbox</span>
+    </a>
+    <a routerLink="/sent" routerLinkActive="text-blue-600 font-semibold" class="flex items-center space-x-2">
+      <span> <fa-icon [icon]=faEnvelope [ngStyle]="{'color':'green'}" /> Sent</span>
+    </a>
+<!--    <a routerLink="/drafts" routerLinkActive="text-blue-600 font-semibold" class="flex items-center space-x-2">-->
+<!--      <i class="bi bi-file-earmark-text"></i>-->
+<!--      <span>Drafts</span>-->
+<!--    </a>-->
+    <a routerLink="/trash" routerLinkActive="text-blue-600 font-semibold" class="flex items-center space-x-2">
+      <span> <fa-icon [icon]=faEnvelope [ngStyle]="{'color':'red'}"></fa-icon> Trash</span>
+    </a>
+  </nav>
+
+</div>
+

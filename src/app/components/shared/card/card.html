@@ -1,0 +1,25 @@
+<div class="margin-auto max-w-sm rounded-2xl shadow-lg bg-white p-4 align-center">
+<!--  <img [src]="image" class="rounded-t-2xl" alt="Card image" />-->
+  <div class="">
+    <h1 class="text-xl font-bold">{{title}}</h1>
+    <strong>
+      <p>
+        Create Mail
+      </p>
+    </strong>
+
+    <div routerLink="/mail" class="mt-5">
+      <app-button
+        [text]="isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'"
+        (buttonClick)="toggleSidebar()"
+      ></app-button>
+
+    </div>
+
+  </div>
+
+  <div class="mt-4">
+    <p class="text-gray-600">{{content}}</p>
+    <ng-content></ng-content>
+  </div>
+</div>
