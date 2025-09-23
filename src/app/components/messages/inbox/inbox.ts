@@ -40,11 +40,12 @@ export class Inbox {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user = JSON.parse(storedUser);
-      console.log("Logged in user:", this.user);
+      // console.log("Logged in user:", this.user);
     }
 
     this.mailService.fetchMail().subscribe((res: any) => {
       const allMails = res.data;
+      // console.log("All mails: ",allMails)
       if (this.user?.email) {
         this.allMails = allMails.filter((m: Mail) => m.recipient === this.user!.email);
       } else {

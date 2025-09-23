@@ -39,7 +39,7 @@ export class Trash {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user = JSON.parse(storedUser);
-      console.log("Logged in user:", this.user);
+      // console.log("Logged in user:", this.user);
     }
 
     this.mailService.fetchMail().subscribe({
@@ -47,7 +47,7 @@ export class Trash {
         // Fix: The 'mails' object contains a 'data' property that holds the array.
         // We must access this property to correctly assign the array to allMails.
         this.allMails = mails.data;
-        console.log("Fetched mails:", this.allMails);
+        // console.log("Fetched mails:", this.allMails);
         this.trashMails = this.allMails.filter(m => m.folder === 'trash');
 
       },

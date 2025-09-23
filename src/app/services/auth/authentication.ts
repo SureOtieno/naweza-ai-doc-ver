@@ -64,6 +64,10 @@ export class Authentication {
     return this.http.delete(`${this.baseMailUrl}/delete/${id}`,  this.getAuthHeaders());
   }
 
+  getMail(id: number): Observable<any> {
+    return this.http.get(`${this.baseMailUrl}/get/${id}`,  this.getAuthHeaders());
+  }
+
 
   login(
     credentials: {
@@ -141,6 +145,29 @@ export class Authentication {
     const saved = localStorage.getItem('user');
     return saved ? JSON.parse(saved) : null;
   }
+
+  startTokenTimer() {
+    const token = this.getToken();
+    if (!token) return;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expires = payload.exp * 1000;
+      const timeout = expires - Date.now();
+
+      if (timeout > 0) {
+        setTimeout(() => {
+          this.logout();
+          alert("Your session has expired. Please log in again.");
+        }, timeout);
+      } else {
+        this.logout();
+      }
+    } catch {
+      this.logout();
+    }
+  }
+
 
 }
 

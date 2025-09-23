@@ -30,20 +30,4 @@ export class Draft {
 
   title = signal<string | null>("Drafts");
 
-
-  approve(row: any) {
-
-  }
-
-  update(row: any) {
-
-  }
-
-  delete(row: any) {
-
-  }
-
-  view(_t48: any) {
-    throw new Error('Method not implemented.');
-  }
 }

@@ -5,6 +5,7 @@ import {Sidebar} from '../../shared/sidebar/sidebar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ButtonComponent} from '../../shared/button/button.component';
 import {User} from '../../../core/models/user.model';
+import {Mail} from '../../../core/models/mails.model'
 
 
 
@@ -20,12 +21,15 @@ import {User} from '../../../core/models/user.model';
   styleUrl: './mail.scss'
 })
 
-export class Mail {
+export class MailComponent {
   successMessage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
   title = signal<string | null>("Send Mail");
 
   returnUrl = '/sent';
+  allMails: Mail[] = [];
+  selectedMail: Mail | null = null;
+  sentMails: Mail[] = [];
 
   form = new FormGroup({
     recipient: new FormControl('', [Validators.required, Validators.email]),
@@ -50,7 +54,7 @@ export class Mail {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user = JSON.parse(storedUser);
-      console.log("Logged in user:", this.user);
+      // console.log("Logged in user:", this.user);
     }
   }
 
@@ -67,43 +71,44 @@ export class Mail {
   }
 
   onSend() {
-    const user = this.user;  // grab logged-in user details
     this.form.markAllAsTouched();
     this.successMessage.set(null);
     this.errorMessage.set(null);
 
-    if (!user || !user.email) {
+    if (!this.user || !this.user.email) {
       console.error("No user found, please log in again.");
       return;
     }
+
+    if (this.form.invalid) {
+      this.errorMessage.set("Please fill in all fields correctly.");
+      return;
+    }
+
     this.mailService.sendMail({
-      sender: user.email,
+      sender: this.user.email,
       recipient: this.recipientControl.value,
       subject: this.subjectControl.value,
       body: this.messageBodyControl.value
-    })
-      .subscribe({
-        next: (res) => {
-          {
+    }).subscribe({
+      next: (res: Mail) => {
+        // Ensure the mail is marked as sent
+        res.folder = 'sent';
+        this.sentMails.push(res);
 
-            this.successMessage.set("Mail sent successfully!");
-            setTimeout(() => {
-              this.router.navigateByUrl(this.returnUrl);
-            }, 2000);
+        this.successMessage.set("Mail sent successfully!");
+        this.form.reset();
 
-            this.form.reset();
-            console.log('Mail send success', res)
-          }
-        },
-        error: (err) => {
-          this.errorMessage.set("Failed to send mail sent. Please try again.");
-          console.error('Mail send failed', err)
-        }
-      });
-
+        setTimeout(() => {
+          this.router.navigateByUrl(this.returnUrl);
+        }, 2000);
+      },
+      error: (err) => {
+        this.errorMessage.set("Failed to send mail. Please try again.");
+        console.error("Mail send failed", err);
+      }
+    });
   }
-
-
 
 }
 

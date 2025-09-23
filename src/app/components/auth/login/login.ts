@@ -69,26 +69,30 @@ export class Login {
         password: this.loginForm.get('password')!.value,
       };
 
-      console.log('Payload being sent:', payload);
+      // console.log('Payload being sent:', payload);
 
       this.auth.login(payload)
         .subscribe({
-          next: (res) => {
-            const token = res.token; // <-- here
-            console.log('JWT:', token);
-            // store it
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(res.data));
-            console.log('Login success', res);
-            this.successMessage.set('Login successful! Redirecting...');
-            setTimeout(() => {
-              this.router.navigateByUrl(this.returnUrl);
-            }, 2000);
+            next: (res) => {
+              const token = res.token;
+              // console.log('JWT:', token);
 
-            this.loginForm.reset();
-          },
+              localStorage.setItem('token', token);
+              localStorage.setItem('user', JSON.stringify(res.data));
+
+              // ⬇️ Add this line
+              this.auth.startTokenTimer();
+
+              // console.log('Login success', res);
+              this.successMessage.set('Login successful! Redirecting...');
+              setTimeout(() => {
+                this.router.navigateByUrl(this.returnUrl);
+              }, 2000);
+
+              this.loginForm.reset();
+            },
           error: (err) => {
-            console.error('Login failed', err);
+            // console.error('Login failed', err);
             this.errorMessage.set('Login failed. Please check your username and password.');
           }
         });

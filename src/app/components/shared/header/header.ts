@@ -2,11 +2,13 @@ import {Component, signal} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {Authentication} from '../../../services/auth/authentication';
 import {User} from '../../../core/models/user.model';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-header',
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'
@@ -32,7 +34,13 @@ export class Header {
     }
   }
 
-  onlogout(): void {
+  isDrawerOpen = false;
+
+  toggleDrawer() {
+    this.isDrawerOpen = !this.isDrawerOpen;
+  }
+
+  onLogout(): void {
     this.auth.logout();
   }
 

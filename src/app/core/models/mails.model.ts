@@ -4,6 +4,6 @@ export interface Mail {
   recipient: string;
   subject: string;
   body: string;
-  sentOn: string;
+  sentAt: string;
   folder?: 'inbox' | 'sent' | 'trash';
 }

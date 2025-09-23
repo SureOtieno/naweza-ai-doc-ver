@@ -38,7 +38,7 @@ export class Sent {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user = JSON.parse(storedUser);
-      console.log("Logged in user:", this.user);
+      // console.log("Logged in user:", this.user);
     }
 
     this.mailService.fetchMail().subscribe((res: any) => {

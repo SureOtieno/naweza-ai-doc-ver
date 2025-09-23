@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: MailLayout,
     canActivate: [AuthGuard],
     children: [
-      { path: 'mail', loadComponent: () => import('./components/messages/mail/mail').then(m => m.Mail) },
+      { path: 'mail', loadComponent: () => import('./components/messages/mail/mail').then(m => m.MailComponent) },
       { path: 'inbox', loadComponent: () => import('./components/messages/inbox/inbox').then(m => m.Inbox) },
       { path: 'trash', loadComponent: () => import('./components/messages/trash/trash').then(m => m.Trash) },
       { path: 'sent', loadComponent: () => import('./components/messages/sent/sent').then(m => m.Sent) },

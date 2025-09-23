@@ -2,7 +2,7 @@ import {Component, signal} from '@angular/core';
 import {Card} from '../card/card';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {Sidebar} from '../sidebar/sidebar';
-import {Mail} from '../../messages/mail/mail';
+import {MailComponent} from '../../messages/mail/mail';
 import {Inbox} from '../../messages/inbox/inbox';
 
 @Component({
@@ -11,7 +11,7 @@ import {Inbox} from '../../messages/inbox/inbox';
     Card,
     AngularSvgIconModule,
     Sidebar,
-    Mail,
+    MailComponent,
     Inbox
   ],
   templateUrl: './home.html',
