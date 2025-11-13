@@ -1,0 +1,67 @@
+
+
+<div class="flex h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-md border-r">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    <!-- Page Header -->
+    <header class="mb-10 text-center">
+      <h2 class="text-3xl font-extrabold text-gray-900">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+          {{ title() }}
+        </span>
+      </h2>
+    </header>
+
+
+    <div class="flex flex-col mt-5">
+      <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+          <div class="overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead>
+              <tr>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Mail ID</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Sent On</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Recipient</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Message</th>
+                <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
+              </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+<!--              <tr *ngFor="let mail of allMails">-->
+<!--                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">-->
+<!--                  {{ mail.id }}-->
+<!--                </td>-->
+<!--                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">-->
+<!--                  {{ mail.sentOn }}-->
+<!--                </td>-->
+<!--                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">-->
+<!--                  {{ mail.recipient }}-->
+<!--                </td>-->
+<!--                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 truncate max-w-xs">-->
+<!--                  {{ mail.body }}-->
+<!--                </td>-->
+<!--                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium space-x-2">-->
+<!--                  <app-button color="red" text="Delete" (click)="onDelete(mail.id)" />-->
+<!--                  <app-button text="View" (click)="viewMail(mail)" />-->
+<!--                </td>-->
+<!--              </tr>-->
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+
+

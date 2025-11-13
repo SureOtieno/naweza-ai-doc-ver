@@ -1,0 +1,67 @@
+<section class="p-8 bg-gray-900 min-h-screen text-white">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold text-indigo-400 mb-6">Verification Flow Console</h1>
+    <p class="text-gray-400 mb-8">Drag and drop modules to define your custom verification process. The order you define is the order of execution.</p>
+
+    <div class="mb-8">
+      <label for="flowName" class="block text-sm font-medium text-gray-300 mb-2">Flow Name</label>
+      <input type="text" id="flowName" [(ngModel)]="flowName" placeholder="e.g., High Risk Client Onboarding Flow"
+             class="w-full md:w-1/2 p-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-white">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <div class="col-span-1">
+        <h2 class="text-2xl font-semibold mb-4 text-cyan-400">Available Modules</h2>
+        <div
+          cdkDropList
+          [cdkDropListData]="availableSteps"
+          [cdkDropListConnectedTo]="['current-flow-list']"
+          (cdkDropListDropped)="drop($event)"
+          class="bg-gray-800 p-4 rounded-lg min-h-[500px] border-2 border-dashed border-gray-700"
+        >
+          <div *ngFor="let step of availableSteps"
+               cdkDrag
+               [ngClass]="{'opacity-50 cursor-not-allowed': !step.enabled}"
+               [cdkDragDisabled]="!step.enabled"
+               class="bg-gray-700 p-4 mb-3 rounded-lg shadow-md cursor-grab active:cursor-grabbing hover:bg-gray-600 transition duration-150"
+          >
+            <div class="font-bold text-lg">{{ step.name }}</div>
+            <p class="text-sm text-gray-400">{{ step.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-2">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-400">Your Verification Flow</h2>
+        <div
+          cdkDropList
+          id="current-flow-list"
+          [cdkDropListData]="currentFlow"
+          [cdkDropListConnectedTo]="['available-steps-list']"
+          (cdkDropListDropped)="drop($event)"
+          class="bg-gray-800 p-4 rounded-lg min-h-[500px] border-2 border-solid border-indigo-500"
+        >
+          <div *ngIf="currentFlow.length === 0" class="text-center text-gray-500 p-10">
+            Drag modules here to start defining your flow.
+          </div>
+
+          <div *ngFor="let step of currentFlow; let i = index"
+               cdkDrag
+               class="bg-indigo-700/50 p-4 mb-3 rounded-lg shadow-xl border-l-4 border-indigo-400 cursor-move hover:bg-indigo-600/50 transition duration-150"
+          >
+            <div class="text-sm font-light text-indigo-200 mb-1">STEP {{ i + 1 }}</div>
+            <div class="font-bold text-xl">{{ step.name }}</div>
+            <div class="cdk-drag-placeholder"></div>
+          </div>
+        </div>
+
+        <button (click)="saveFlow()" [disabled]="currentFlow.length === 0 || flowName === ''"
+                class="mt-6 w-full p-4 text-lg font-bold rounded-lg bg-green-600 text-white hover:bg-green-500 transition disabled:bg-gray-700 disabled:cursor-not-allowed">
+          Save Verification Flow
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
