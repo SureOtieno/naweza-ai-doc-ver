@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MailLayout } from './mail-layout';
+import { Auth } from './auth';
 
-describe('Layout', () => {
-  let component: MailLayout;
-  let fixture: ComponentFixture<MailLayout>;
+describe('Auth', () => {
+  let component: Auth;
+  let fixture: ComponentFixture<Auth>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MailLayout]
+      imports: [Auth]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MailLayout);
+    fixture = TestBed.createComponent(Auth);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

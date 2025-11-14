@@ -2,14 +2,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {AuthGuard} from './core/auth_guard/auth-guard';
 import {MailLayout} from './modules/shared/mail-layout/mail-layout';
-import {AuthLayout} from './modules/shared/auth-layout/auth-layout';
-import {WorkflowManagement} from './modules/flow-management/workflow-management';
 
 export const routes: Routes = [
   {
-    path: 'flow-management',
-    component: WorkflowManagement,
-    loadChildren: () => import('./modules/flow-management/workflow-management-module').then((m) => m.WorkflowManagementModule),
+    path: 'layout',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/layout/layout-module').then((m) => m.LayoutModule),
   },
   // {
   //   path: '',
@@ -28,7 +26,7 @@ export const routes: Routes = [
       // { path: 'inbox', loadComponent: () => import('./modules/messages/inbox/inbox').then(m => m.Inbox) },
       // { path: 'trash', loadComponent: () => import('./modules/messages/trash/trash').then(m => m.Trash) },
       // { path: 'sent', loadComponent: () => import('./modules/messages/sent/sent').then(m => m.Sent) },
-      { path: 'home', loadComponent: () => import('./modules/home/home').then(m => m.Home) }
+      { path: '', loadComponent: () => import('./modules/home/home').then(m => m.Home) }
     ]
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

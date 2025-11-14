@@ -1,28 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {WorkflowManagement} from './workflow-management';
-import {FlowDesignerComponent} from './pages/flow-designer/flow-designer';
+import {FlowDesigner} from './pages/flow-designer/flow-designer';
 import {UpdateFlow} from './pages/update-flow/update-flow';
 import {ViewFlow} from './pages/view-flow/view-flow';
 
 const routes: Routes = [
   {
+    // The default route for /flow-management
     path: '',
     component: WorkflowManagement,
-    children: [
-      {
-        path: 'flow-designer',
-        component: FlowDesignerComponent,
-      },
-      {
-        path: 'view-flow',
-        component: ViewFlow,
-      },
-      {
-        path: 'update-flow',
-        component: UpdateFlow,
-      },
-    ],
+  },
+  {
+    // The designer route for /flow-management/flow-designer
+    path: 'flow-designer',
+    component: FlowDesigner,
+  },
+  {
+    // The view route for /flow-management/view-flow
+    path: 'view-flow',
+    component: ViewFlow,
   },
 ];
 

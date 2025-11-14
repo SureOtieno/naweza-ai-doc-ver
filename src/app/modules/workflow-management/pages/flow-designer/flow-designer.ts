@@ -1,8 +1,8 @@
 
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IVerificationStep} from '../../../docver-models/workflow';
-import {NgClass} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -12,11 +12,13 @@ import {FormsModule} from '@angular/forms';
     CdkDropList,
     CdkDrag,
     NgClass,
-    FormsModule
+    FormsModule,
+    NgForOf,
+    NgIf
   ],
-  styleUrls: ['./flow-designer.scss']
+  styleUrl: './flow-designer.scss'
 })
-export class FlowDesignerComponent {
+export class FlowDesigner{
   flowName: string = '';
 
   // 1. Source: All available verification checks (Static List)
