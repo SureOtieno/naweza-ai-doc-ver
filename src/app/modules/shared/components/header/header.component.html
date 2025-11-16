@@ -1,0 +1,37 @@
+<header class="fixed top-0 left-0 w-full h-16 bg-gray-800 shadow-xl z-30">
+  <div class="flex justify-between items-center h-full px-6">
+
+    <div class="flex items-center space-x-3">
+      <div class="flex justify-end mb-6">
+        <button class="px-8 py-3 md:px-10 md:py-4 text-lg font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
+                routerLink="">
+          <span class="text-2xl text-cyan-400 font-bold">Nafsi</span>
+          <span class="hidden sm:inline text-sm text-gray-400"> &#64;AI </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+
+      <button class="text-gray-400 hover:text-cyan-400 focus:outline-none" title="Notifications">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405C18.8 15.19 19 14.19 19 13v-3a7 7 0 00-7-7c-1.573 0-3.033.454-4.25 1.25M6 10v3c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4v-3M12 21a2 2 0 002-2H10a2 2 0 002 2z"></path></svg>
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <span class="text-sm font-medium text-gray-300 hidden sm:inline">{{ userName }}</span>
+
+        <button class="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-600 text-white font-semibold focus:outline-none" title="User Profile">
+          {{ userName.charAt(0) }}
+        </button>
+      </div>
+
+      <button
+        (click)="logout()"
+        class="text-sm font-medium text-red-400 hover:text-red-300 focus:outline-none hidden md:block"
+      >
+        Log Out
+      </button>
+
+    </div>
+  </div>
+</header>

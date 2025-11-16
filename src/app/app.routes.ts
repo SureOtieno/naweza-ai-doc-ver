@@ -1,46 +1,72 @@
-import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {AuthGuard} from './core/auth_guard/auth-guard';
-import {MailLayout} from './modules/shared/mail-layout/mail-layout';
+// src/app/app.routes.ts (AppRoutingModule content)
+
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { AuthGuard } from './core/auth_guard/auth-guard';
+import { MainLayoutComponent } from './modules/shared/main-layout/main-layout';
+import { AuthLayout } from './modules/shared/auth-layout/auth-layout';
+import { Home } from './modules/home/home';
+import {DocumentUploadComponent} from './modules/document-upload/document-upload';
+import {VerificationHistory} from './modules/verification-history/verification-history';
+import {VerificationDetails} from './modules/verification-details/verification-details';
 
 export const routes: Routes = [
-  {
-    path: 'layout',
-    // canActivate: [AuthGuard],
-    loadChildren: () => import('./modules/layout/layout-module').then((m) => m.LayoutModule),
-  },
-  // {
-  //   path: '',
-  //   component: AuthLayout,
-  //   children: [
-  //     { path: 'login', loadComponent: () => import('./modules/auth/login/login').then(m => m.Login) },
-  //     { path: 'signup', loadComponent: () => import('./modules/auth/signup/signup').then(m => m.Signup) }
-  //   ]
-  // },
+
+  // --- PUBLIC/AUTH ROUTES ---
   {
     path: '',
-    component: MailLayout,
+    component: Home, // Assuming Home is the public landing or redirects to login
+  },
+  {
+    path: 'auth-layout', // Use this route for login, register, etc.
+    component: AuthLayout,
+  },
+
+  // --- PROTECTED ROUTES (Using MainLayout) ---
+  {
+    path: '',
+    component: MainLayoutComponent,
     // canActivate: [AuthGuard],
     children: [
-      // { path: 'mail', loadComponent: () => import('./modules/messages/mail/mail').then(m => m.MailComponent) },
-      // { path: 'inbox', loadComponent: () => import('./modules/messages/inbox/inbox').then(m => m.Inbox) },
-      // { path: 'trash', loadComponent: () => import('./modules/messages/trash/trash').then(m => m.Trash) },
-      // { path: 'sent', loadComponent: () => import('./modules/messages/sent/sent').then(m => m.Sent) },
-      { path: '', loadComponent: () => import('./modules/home/home').then(m => m.Home) }
-    ]
+      {
+        // 🚨 FIX 1: Add this redirect to make '/ ' land on the dashboard
+        path: '',
+        redirectTo: 'workflow-management',
+        pathMatch: 'full'
+      },
+      {
+        path: 'workflow-management',
+        // CORRECT: All workflow routes are handled here via lazy loading.
+        loadChildren: () => import('./modules/workflow-management/workflow-management-module').then((m) => m.WorkflowManagementModule),
+      },
+      {
+        path: 'document-upload',
+        // CORRECT: If document-upload is not a lazy module, define it here.
+        // If it should be lazy loaded, use loadChildren instead of component.
+        component: DocumentUploadComponent,
+      },
+      {
+        path: 'verification-history',
+        component: VerificationHistory,
+      },
+      {
+        path: 'verification-details/:id',
+        component: VerificationDetails,
+      },
+      // You don't need 'main-layout' as a child path of 'MainLayoutComponent'.
+      // You don't need 'flow-designer' here as it's lazy-loaded below.
+    ],
   },
+
+  // --- WILDCARD/FALLBACK ROUTES ---
+  // Use a login redirect and a simple 404 handler.
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' } // Assuming 'login' is a route in AuthLayout
 ];
-
-
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: []
-
 })
 export class AppRoutingModule {}

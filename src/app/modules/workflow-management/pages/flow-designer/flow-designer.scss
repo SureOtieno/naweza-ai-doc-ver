@@ -1,0 +1,9 @@
+/* src/app/modules/flow-management/flow-designer/flow-designer.component.scss */
+
+/* This rule targets the element the Angular CDK applies the 'cdkDrag' directive to.
+  It provides the necessary 'transition' property value that the framework needs
+  to read for the snap-back animation, preventing the 'toLowerCase' error.
+*/
+.cdk-drag {
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}

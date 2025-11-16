@@ -1,0 +1,14 @@
+<div class="flex h-14 items-center justify-between gap-2.5 rounded-tr-lg rounded-tl-lg bg-[#DAD1FF] py-2 px-4 shadow">
+  <!--Table Title-->
+  <div class="font-gotham text-base font-bold leading-6 text-[#083273]">
+    {{ title() }}
+  </div>
+  <!--Reports Button-->
+  <div class="flex space-x-1 text-[#083273]">
+    <button type="button" class="  text-center bg-[#FFFFFFBF] h-8 w-11  text-xs font-bold rounded-lg me-2" (click)="exportToCsv()">CSV</button>
+    <button type="button" class="  text-center bg-[#FFFFFFBF] h-8 w-11  text-xs font-bold rounded-lg me-2" (click)="exportToExcel()">Excel</button>
+    <button type="button" class=" text-center bg-[#FFFFFFBF] h-8 w-11  text-xs font-bold rounded-lg me-2" (click)="onExportToPDF()">PDF</button>
+    <button type="button" class=" text-center bg-[#FFFFFFBF] h-8 w-11  text-xs font-bold rounded-lg me-2" (click)="exportToPrint()">Print</button>
+  </div>
+
+</div>

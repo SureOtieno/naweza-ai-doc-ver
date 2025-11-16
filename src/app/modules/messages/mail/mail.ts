@@ -1,9 +1,9 @@
 import {Component, signal} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Authentication} from '../../../core/services/auth/authentication';
-import {Sidebar} from '../../shared/sidebar/sidebar';
+import {SidebarComponent} from '../../shared/components/sidebar/sidebar';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ButtonComponent} from '../../shared/button/button.component';
+import {ButtonComponent} from '../../shared/components/button/button.component';
 import {User} from '../../../core/models/user.model';
 import {Mail} from '../../../core/models/mails.model'
 
@@ -14,7 +14,7 @@ import {Mail} from '../../../core/models/mails.model'
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    Sidebar,
+    SidebarComponent,
     ButtonComponent
   ],
   templateUrl: './mail.html',

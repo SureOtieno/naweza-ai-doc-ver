@@ -1,0 +1,234 @@
+<div class="w-full flex flex-col gap-6">
+  <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+    <div class="text-lg font-semibold text-gray-800 mb-2">Filters</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="flex flex-col">
+        <select id="countryFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <option value="">All Countries</option>
+          <option value="US">Kenya</option>
+          <option value="UK">Uganda</option>
+          <option value="CA">Cameroon</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <select id="serviceFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <option value="">All Services</option>
+          <option value="payment-processing">Payment Processing</option>
+          <option value="money-transfer">Money Transfer</option>
+          <option value="merchant-services">Merchant Services</option>
+          <option value="mobile-payments">Mobile Payments</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <select id="dateFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <option value="7">Last 7 Days</option>
+          <option value="30" selected>Last 30 Days</option>
+          <option value="90">Last 3 Months</option>
+          <option value="180">Last 6 Months</option>
+          <option value="365">Last Year</option>
+          <option value="custom">Custom Range</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!--Overview Transactions-->
+  <div class="grid grid-cols-3 gap-4 rounded-2xl bg-background p-4 shadow">
+    <!--Card for the summary Overview-->
+    <div class="card rounded-2xl p-4 shadow bg-white">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <!-- Total Transactions Icon -->
+            <div class="mr-3 p-2 rounded-full bg-blue-50">
+              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-gray-800">Total Value All TXTs</span>
+          </div>
+          <div class="text-sm font-light leading-6 text-gray-800">ct. 100000</div>
+          <div class="text-xl font-bold leading-6 text-gray-800">USD.1520000</div>
+        </div>
+
+        <!-- Trend Section -->
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-green-50">
+            <!-- Up Arrow Icon -->
+            <svg class="w-4 h-4 trend-up" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L10 4.414 4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-up">+12.5%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl border-1 border-gray-800  p-4 shadow">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <!-- Success Icon -->
+            <div class="mr-3 p-2 rounded-full bg-green-50">
+              <svg class="w-6 h-6 text-[#3DC13C]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-[#3DC13C]">Successful Payments</span>
+
+          </div>
+          <div class="text-xl font-bold leading-6 text-gray-800">ct. 100000</div>
+          <div class="text-sm font-light leading-6 text-gray-800">USD.1520000</div>
+        </div>
+        <!-- Trend Section -->
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-green-50">
+            <!-- Up Arrow Icon -->
+            <svg class="w-4 h-4 trend-up" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L10 4.414 4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-up">+12.5%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card rounded-2xl  p-4 shadow">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <!-- Pending/Clock Icon -->
+            <div class="mr-3 p-2 rounded-full bg-orange-50">
+              <svg class="w-6 h-6 text-[#FD8E39]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-[#FD8E39]">Pending Payments</span>
+
+          </div>
+          <div class="text-xl font-bold leading-6 text-black">ct. 100000</div>
+          <div class="text-sm font-light leading-6 text-black">USD.1520000</div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-red-50">
+            <!-- Down Arrow Icon -->
+            <svg class="w-4 h-4 trend-down" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L10 15.586l5.293-5.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-down">-8.3%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card rounded-2xl  p-4 shadow">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <!-- Revenue/Dollar Icon -->
+            <div class="mr-3 p-2 rounded-full bg-gray-50">
+              <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-gray-800">Total Revenue All TXTs</span>
+          </div>
+          <div class="text-sm font-light leading-6 text-gray-800">ct. 100000</div>
+          <div class="text-xl font-bold leading-6 text-gray-800">USD.1520000</div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-gray-50">
+            <!-- Neutral Icon -->
+            <svg class="w-4 h-4 trend-neutral" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-neutral">0.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl  p-4 shadow">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <!-- Processing/Spinner Icon -->
+            <div class="mr-3 p-2 rounded-full bg-yellow-50">
+              <svg class="w-6 h-6 text-[#F3BB1B]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-[#F3BB1B]">Processing Payments</span>
+          </div>
+          <div class="text-xl font-bold leading-6 text-gray-800">ct. 100000</div>
+          <div class="text-sm font-light leading-6 text-gray-800">USD.1520000</div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-gray-50">
+            <!-- Neutral Icon -->
+            <svg class="w-4 h-4 trend-neutral" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-neutral">0.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-4 shadow">
+      <div class="justify-content-between mb-3 flex">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <div class="mr-3 p-2 rounded-full bg-red-50">
+              <svg class="w-6 h-6 text-[#F13637]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold leading-6 text-[#F13637]">Failed Payments</span>
+          </div>
+          <div class="text-xl font-bold leading-6 text-gray-800">ct. 100000</div>
+          <div class="text-sm font-light leading-6 text-gray-800">USD.1520000</div>
+        </div>
+
+        <!-- Trend Section -->
+        <div class="flex items-center">
+          <div class="flex items-center space-x-1 px-2 py-1 rounded-full bg-green-50">
+            <!-- Up Arrow Icon -->
+            <svg class="w-4 h-4 trend-up" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L10 4.414 4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium trend-up">+12.5%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Chart to Compare Performance Per Service-->
+  <div class="bg-background shadow p-4  rounded-2xl">
+    <app-service-vs-performance-line-graph></app-service-vs-performance-line-graph>
+  </div>
+
+
+  <div class="grid grid-cols-2 gap-4">
+    <!--Successful Transactions Vs Failed Transactions--->
+    <div class="rounded-2xl border border-gray-100 bg-background p-4 shadow">
+      <app-successful-vs-failed-transactions-graph></app-successful-vs-failed-transactions-graph>
+
+    </div>
+    <!--Float Balance Per Service -->
+    <div class="rounded-2xl border border-gray-100 bg-background p-4 shadow">
+      <app-float-balance-per-service></app-float-balance-per-service>
+
+    </div>
+  </div>
+
+  <!--Float Balances-->
+  <div class="bg-background shadow p-4  rounded-2xl">
+    <app-pre-paid-float-consumption-per-service></app-pre-paid-float-consumption-per-service>
+  </div>
+
+</div>

@@ -1,0 +1,87 @@
+<section class="p-8 bg-gray-900 min-h-screen text-white">
+  <div class="container mx-auto max-w-4xl">
+
+    <h1 class="text-4xl font-bold text-indigo-400 mb-2">Document Submission Portal</h1>
+    <p class="text-gray-400 mb-8">
+      Select a verification flow below. The documents required for the chosen flow will appear automatically.
+    </p>
+
+    <div class="bg-gray-800 p-6 rounded-lg shadow-xl mb-8 border border-indigo-700">
+      <h2 class="text-xl font-semibold mb-4 text-white flex items-center space-x-2">
+        <span>1. Choose Verification Flow</span>
+        <span class="text-sm text-gray-500">(Required)</span>
+      </h2>
+
+      <div class="w-full md:w-3/4">
+        <label for="flowSelect" class="block text-sm font-medium text-gray-300 mb-2">Select Active Flow</label>
+        <select id="flowSelect" [(ngModel)]="selectedFlow" (change)="loadRequiredDocuments()"
+                class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-cyan-500 focus:border-cyan-500 text-white cursor-pointer"
+                [disabled]="availableFlows.length === 0">
+          <option [ngValue]="null" disabled>-- Select a verification flow --</option>
+          <option *ngFor="let flow of availableFlows" [ngValue]="flow">
+            {{ flow.name }} ({{ flow.stepsCount }} Steps)
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="selectedFlow" class="mt-4 text-sm text-gray-400">
+        <p>Selected: **{{ selectedFlow.name }}**</p>
+        <p>Status: <span [class.text-green-400]="selectedFlow.status === 'ACTIVE'">{{ selectedFlow.status }}</span></p>
+      </div>
+    </div>
+
+    <div *ngIf="selectedFlow" class="bg-gray-800 p-6 rounded-lg shadow-xl border border-indigo-700">
+      <h2 class="text-xl font-semibold mb-6 text-white flex items-center space-x-2">
+        <span>2. Submit Required Documents</span>
+        <span class="text-sm text-gray-500">({{ requiredDocuments.length }} Items)</span>
+      </h2>
+
+      <div class="space-y-6">
+        <div *ngFor="let doc of requiredDocuments; let i = index"
+             class="p-4 border border-gray-700 rounded-lg transition duration-150 hover:bg-gray-700/50"
+             [ngClass]="{'border-green-500': doc.isUploaded, 'border-red-500': doc.hasError}">
+
+          <div class="flex justify-between items-start">
+            <h3 class="font-bold text-lg mb-2">
+              {{ doc.documentType }} <span class="text-sm text-red-400" *ngIf="doc.isRequired">*</span>
+            </h3>
+
+            <span [ngClass]="{
+              'bg-green-600/30 text-green-400': doc.isUploaded,
+              'bg-yellow-600/30 text-yellow-400': !doc.isUploaded && !doc.hasError,
+              'bg-red-600/30 text-red-400': doc.hasError
+            }" class="px-3 py-1 text-xs font-semibold rounded-full uppercase">
+              {{ doc.isUploaded ? 'Uploaded' : (doc.hasError ? 'Error' : 'Pending') }}
+            </span>
+          </div>
+
+          <p class="text-sm text-gray-400 mb-3">{{ doc.instructions }}</p>
+
+          <div class="flex space-x-4 items-center mt-3">
+
+            <button (click)="initiateCapture(doc)"
+                    class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-500 transition duration-150">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.373 3H13.62c.762 0 1.487.38 1.879 1.01l.812 1.22a2 2 0 001.664.89H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              <span>Capture / Upload</span>
+            </button>
+
+            <input type="file" (change)="onFileSelected($event, doc)" class="text-sm text-gray-500">
+          </div>
+
+          <div *ngIf="doc.previewUrl" class="mt-3">
+            <img [src]="doc.previewUrl" alt="Document Preview" class="max-h-24 w-auto rounded-md border border-gray-600">
+          </div>
+
+        </div>
+      </div>
+
+      <button [disabled]="!isFlowComplete()"
+              (click)="submitFlow()"
+              class="w-full mt-8 p-4 text-lg font-bold rounded-lg bg-green-600 text-white hover:bg-green-500 transition disabled:bg-gray-700 disabled:cursor-not-allowed">
+        Submit
+      </button>
+
+    </div>
+
+  </div>
+</section>

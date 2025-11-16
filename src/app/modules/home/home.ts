@@ -1,7 +1,7 @@
 import {Component, signal} from '@angular/core';
-import {Card} from '../shared/card/card';
+import {Card} from '../shared/components/card/card';
 import {AngularSvgIconModule} from 'angular-svg-icon';
-import {Sidebar} from '../shared/sidebar/sidebar';
+import {SidebarComponent} from '../shared/components/sidebar/sidebar';
 import {MailComponent} from '../messages/mail/mail';
 import {Inbox} from '../messages/inbox/inbox';
 import {CtaBar} from './pages/cta-bar/cta-bar';
@@ -13,7 +13,7 @@ import {HeroSection} from './pages/hero-section/hero-section';
   imports: [
     Card,
     AngularSvgIconModule,
-    Sidebar,
+    SidebarComponent,
     MailComponent,
     Inbox,
     CtaBar,

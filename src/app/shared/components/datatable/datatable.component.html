@@ -1,0 +1,126 @@
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 p-2 bg-white rounded-lg shadow-sm">
+
+  <p-multiSelect
+    [options]="allColumns"
+    [(ngModel)]="selectedColumns"
+    optionLabel="header"
+    display="chip"
+    placeholder="Select Columns"
+    class="p-multiselect-sm w-full md:w-56"
+  />
+
+  <div class="w-full md:w-64">
+    <p-iconField iconPosition="left">
+      <p-inputIcon>
+        <i class="pi pi-search text-gray-400"></i>
+      </p-inputIcon>
+      <input
+        pInputText
+        type="text"
+        (input)="dt.filterGlobal($event.target.value, 'contains')"
+        placeholder="Global Search"
+        [(ngModel)]="searchKeyword"
+        class="p-inputtext-sm w-full"
+      />
+    </p-iconField>
+  </div>
+</div>
+
+
+<p-table
+  #dt
+  [value]="rows"
+  [columns]="selectedColumns"
+  [globalFilterFields]="globalFilterFields"
+  [loading]="loading"
+  [scrollable]="true"
+  [scrollHeight]="'calc(100vh - 300px)'"
+  [paginator]="true"
+  [rows]="15"
+  [rowsPerPageOptions]="[10, 15, 25, 50]"
+  currentPageReportTemplate="Showing {first}–{last} of {totalRecords}"
+  styleClass="p-datatable-striped p-datatable-hover"
+  [resizableColumns]="true"
+  [rowHover]="true"
+  [virtualScroll]="true"
+  [virtualScrollItemSize]="56"
+  sortMode="multiple"
+  [tableStyle]="{ 'min-width': '80rem' }"
+  class="text-xs"
+>
+  <ng-template pTemplate="header">
+    <tr class="bg-gray-50 text-gray-700 font-semibold">
+      <th class="w-12 text-center">#</th>
+      <th *ngFor="let col of selectedColumns" pResizableColumn pSortableColumn="{{col.field}}" class="px-4 py-3">
+        <div class="flex items-center gap-2">
+          {{ col.header }}
+          <p-sortIcon field="{{col.field}}" class="text-gray-400" />
+        </div>
+        <p-columnFilter
+          [type]="col.type === 'date' ? 'date' : 'text'"
+          [field]="col.field"
+          display="menu"
+          class="mt-2"
+        />
+      </th>
+
+      @if (actions.length) {
+        <th class="w-24 text-center">Actions</th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row let-i="rowIndex">
+    <tr class="border-b border-gray-100 hover:bg-indigo-50/50 transition-colors">
+      <td class="text-center font-medium text-gray-500">{{ i + 1 }}</td>
+
+      <td *ngFor="let col of selectedColumns" class="px-4 py-4">
+        <ng-container [ngSwitch]="col.template ? 'component' : 'default'">
+
+          <ng-container *ngSwitchCase="'component'">
+            <ng-container *ngTemplateOutlet="col.template; context: {$implicit: row}"></ng-container>
+          </ng-container>
+
+          <div *ngSwitchDefault
+               class="text-gray-800 max-w-48 overflow-hidden whitespace-nowrap text-ellipsis"
+               pTooltip="{{ row[col.field] }}"
+               tooltipPosition="top"
+               [escape]="false">
+            {{ row[col.field] || '—' }}
+          </div>
+        </ng-container>
+      </td>
+      <td class="text-center px-2">
+        @if (actions.length) {
+          <p-menu
+            #menu
+            [model]="getMenuItems(row)"
+            [popup]="true"
+            appendTo="body">
+          </p-menu>
+
+          <button
+            pButton
+            icon="pi pi-ellipsis-v"
+            class="p-button-text p-button-sm"
+            (click)="menu.toggle($event)">
+          </button>
+        } @else {
+          <span>—</span>
+        }
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="selectedColumns.length + 1 + (actions.length ? 1 : 0)" class="text-center py-20">
+        <div class="flex flex-col items-center">
+          <i class="pi pi-inbox text-6xl text-gray-300 mb-4"></i>
+          <p class="text-xl font-medium text-gray-500">No data found</p>
+          <p class="text-sm text-gray-400 mt-2">Try adjusting your filters or checking your data source.</p>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

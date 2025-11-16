@@ -1,0 +1,32 @@
+<aside class="w-64 fixed top-16 left-0 h-full bg-gray-800 text-white shadow-xl z-20 overflow-y-auto">
+  <nav class="flex flex-col space-y-6 p-4">
+
+    <div *ngFor="let group of menuItems">
+
+      <h3 class="text-xs font-semibold uppercase text-gray-400 mb-2 mt-4 px-3">
+        {{ group.group }}
+      </h3>
+
+      <ul class="space-y-1">
+        <li *ngFor="let item of group.items">
+          <a [routerLink]="item.route" routerLinkActive="bg-indigo-700 text-white"
+             class="flex items-center space-x-3 p-3 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-700 transition duration-150"
+             [routerLinkActiveOptions]="{exact: true}"
+          >
+            <span class="text-lg w-5 h-5 flex items-center justify-center">{{ item.icon }}</span>
+
+            <span>{{ item.label }}</span>
+
+            <span *ngIf="item.badge" class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-600 text-white">
+              {{ item.badge }}
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <hr *ngIf="group.separator" class="border-gray-700 mt-4 mb-2">
+
+    </div>
+
+  </nav>
+</aside>

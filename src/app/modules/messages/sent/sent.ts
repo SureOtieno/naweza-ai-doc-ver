@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
-import { Card } from '../../shared/card/card';
-import { Sidebar } from '../../shared/sidebar/sidebar';
+import { Card } from '../../shared/components/card/card';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar';
 import { Authentication } from '../../../core/services/auth/authentication';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../core/models/user.model';
-import { ButtonComponent } from '../../shared/button/button.component';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 import {CommonModule, NgStyle} from '@angular/common';
 import { Mail } from '../../../core/models/mails.model'
 
 @Component({
   selector: 'app-trash',
-  imports: [Card, Sidebar, ButtonComponent, NgStyle, CommonModule],
+  imports: [Card, SidebarComponent, ButtonComponent, NgStyle, CommonModule],
   templateUrl: './sent.html',
   styleUrl: './sent.scss'
 })

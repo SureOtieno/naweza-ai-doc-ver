@@ -1,73 +1,89 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ISavedFlow} from '../docver-models/workflow';
-import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+// src/app/modules/flow-management/flow-management-dashboard/flow-management-dashboard.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule, NgFor, NgIf, DatePipe } from '@angular/common'; // Include DatePipe for template
+import { FormsModule } from '@angular/forms'; // Included for potential future search/filtering
+
+interface FlowSummary {
+  id: number;
+  name: string;
+  stepsCount: number;
+  status: 'ACTIVE' | 'INACTIVE' | 'DRAFT';
+  lastUpdated: Date;
+  isDefault: boolean;
+}
 
 @Component({
   selector: 'app-workflow-management',
-  imports: [
-    DatePipe,
-    NgClass,
-    RouterLink,
-    NgForOf,
-    NgIf
-  ],
+  standalone: true,
+  // Ensure all necessary modules are imported
+  imports: [CommonModule, NgFor, NgIf, RouterLink, FormsModule, DatePipe],
   templateUrl: './workflow-management.html',
-  styleUrl: './workflow-management.scss'
+  // You would need to create this SCSS file for the dark theme to match the template
+  styleUrls: ['./workflow-management.scss']
 })
-export class WorkflowManagement implements OnInit {
-  savedFlows: ISavedFlow[] = [
-    { id: 1, name: 'Standard Client Onboarding', stepsCount: 4, lastUpdated: new Date(2025, 10, 1), status: 'ACTIVE', isDefault: true, steps: [] },
-    { id: 2, name: 'High Risk Investor Flow', stepsCount: 6, lastUpdated: new Date(2025, 10, 5), status: 'INACTIVE', isDefault: false, steps: [] },
-    { id: 3, name: 'Partner Integration Flow (API)', stepsCount: 3, lastUpdated: new Date(2025, 10, 10), status: 'DRAFT', isDefault: false, steps: [] },
-  ];
+export class WorkflowManagementComponent implements OnInit {
+  savedFlows: FlowSummary[] = [];
 
-  router = inject(Router);
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // TODO: Fetch real data from a WorkflowService here
+    // Placeholder Data matching the template logic
+    this.savedFlows = [
+      { id: 1, name: 'Standard KYC Identity Check', stepsCount: 5, status: 'ACTIVE', lastUpdated: new Date('2025-11-10'), isDefault: true },
+      { id: 2, name: 'High Risk Client Onboarding Flow', stepsCount: 12, status: 'DRAFT', lastUpdated: new Date('2025-11-14'), isDefault: false },
+      { id: 3, name: 'Internal HR Document Approval', stepsCount: 3, status: 'INACTIVE', lastUpdated: new Date('2025-11-01'), isDefault: false },
+    ];
   }
 
-  // Action: Set a flow as the primary active flow
+  // --- Actions ---
+
+  /**
+   * Navigates to the Flow Designer component to create a new flow.
+   */
+  createNewFlow(): void {
+    this.router.navigate(['/workflow-management/flow-designer']);
+  }
+
+  /**
+   * Navigates to the Flow Designer component to edit an existing flow.
+   * @param flowId The ID of the flow to edit.
+   */
+  editFlow(flowId: number): void {
+    this.router.navigate(['/workflow-management/flow-designer', flowId]);
+    console.log(`Navigating to edit flow ID: ${flowId}`);
+  }
+
+  /**
+   * Sets the selected flow as the new default flow.
+   * @param flowId The ID of the flow to make default.
+   */
   switchFlow(flowId: number): void {
-    this.savedFlows.forEach(flow => {
-      if (flow.id === flowId) {
-        flow.isDefault = true;
-        flow.status = 'ACTIVE';
-      } else {
-        flow.isDefault = false;
-        if (flow.status === 'ACTIVE') {
-          flow.status = 'INACTIVE';
-        }
-      }
-    });
-    // TODO: Call API to persist default flow selection
-    console.log(`Switched default flow to ID: ${flowId}`);
-  }
-
-  // Action: Toggle a flow's activation status
-  toggleFlowStatus(flowId: number): void {
-    const flow = this.savedFlows.find(f => f.id === flowId);
-    if (flow) {
-      if (flow.isDefault) {
-        alert("Cannot disable the current ACTIVE flow. Switch to another flow first.");
-        return;
-      }
-      flow.status = flow.status === 'INACTIVE' ? 'ACTIVE' : 'INACTIVE';
-      // TODO: Call API to update flow status
-      console.log(`Toggled flow ID ${flowId} to ${flow.status}`);
+    if (confirm('Are you sure you want to make this the new default flow for all verification requests?')) {
+      this.savedFlows.forEach(flow => {
+        flow.isDefault = (flow.id === flowId);
+      });
+      console.log(`Switched default flow to ID: ${flowId}`);
+      // In a real app, call a service here to update the backend
     }
   }
 
-  // Navigation: To the Flow Designer component
-  // We'll use routerLink for navigation
-  editFlow(flowId: number): void {
-    // TODO: Implement navigation to the Flow Designer, passing the flowId as a parameter
-    console.log(`Navigating to Flow Designer for ID: ${flowId}`);
-  }
-
-  goTo() {
-    this.router.navigate(['/flow-management/flow-designer']);
+  /**
+   * Toggles the active/inactive status of a non-default flow.
+   * @param flowId The ID of the flow to toggle.
+   */
+  toggleFlowStatus(flowId: number): void {
+    const flow = this.savedFlows.find(f => f.id === flowId);
+    if (flow && !flow.isDefault) {
+      if (flow.status === 'ACTIVE') {
+        flow.status = 'INACTIVE';
+        console.log(`Disabled flow ID: ${flowId}`);
+      } else if (flow.status === 'INACTIVE') {
+        flow.status = 'ACTIVE';
+        console.log(`Enabled flow ID: ${flowId}`);
+      }
+      // In a real app, call a service to update the backend
+    }
   }
 }
-

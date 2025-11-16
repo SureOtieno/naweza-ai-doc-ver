@@ -1,9 +1,15 @@
+// src/app/modules/shared/models/menu.model.ts (MenuItem interface)
+// NOTE: This interface must exist in your project for the below class to work.
 export interface MenuItem {
   group: string;
-  separator?: boolean;
-  selected?: boolean;
-  active?: boolean;
-  items: Array<SubMenuItem>;
+  separator: boolean;
+  items: {
+    icon: string;
+    label: string;
+    route: string;
+    // Optional parameter for active/default flow display
+    badge?: string;
+  }[];
 }
 
 export interface SubMenuItem {
@@ -13,4 +19,17 @@ export interface SubMenuItem {
   expanded?: boolean;
   active?: boolean;
   children?: Array<SubMenuItem>;
+}
+
+// src/app/modules/shared/models/menu.model.ts (Updated)
+
+export interface MenuGroup { // 🚨 RENAMED INTERFACE
+  group: string;
+  separator: boolean;
+  items: {
+    icon: string;
+    label: string;
+    route: string;
+    badge?: string;
+  }[];
 }
