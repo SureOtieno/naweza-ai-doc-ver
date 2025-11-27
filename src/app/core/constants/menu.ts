@@ -23,7 +23,7 @@ export class Menu {
 
     // --- AI VERIFICATION TOOLS ---
     {
-      group: 'AI Verification',
+      group: 'Verification',
       separator: true,
       items: [
         {
@@ -36,12 +36,18 @@ export class Menu {
           label: 'Verification History',
           route: '/verification-history',
         },
+      ],
+    },
+    {
+      group: 'Flow Management',
+      separator: true,
+      items: [
         {
           icon: '⚙️',
           label: 'Flow Management',
           route: '/workflow-management', // Base path for the dashboard
         },
-      ],
+      ]
     },
 
     // --- AUDIT & CONFIGURATION ---

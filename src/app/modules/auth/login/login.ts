@@ -8,7 +8,7 @@ import {Authentication} from '../../../core/services/auth/authentication';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,

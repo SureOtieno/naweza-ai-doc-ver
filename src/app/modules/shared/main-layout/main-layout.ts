@@ -11,7 +11,7 @@ import {
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SidebarComponent, WorkflowManagementComponent], // Include layout components
+  imports: [RouterOutlet, HeaderComponent, SidebarComponent], // Include layout components
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.scss']
 })

@@ -40,6 +40,21 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/workflow-management/workflow-management-module').then((m) => m.WorkflowManagementModule),
       },
       {
+        path: 'dev-portal',
+        // CORRECT: All workflow routes are handled here via lazy loading.
+        loadChildren: () => import('./modules/dev-portal/dev-portal-module').then((m) => m.DevPortalModule),
+      },
+      {
+        path: 'products',
+        // CORRECT: All workflow routes are handled here via lazy loading.
+        loadChildren: () => import('./modules/products/products-module').then((m) => m.ProductsModule),
+      },
+      {
+        path: 'profiles',
+        // CORRECT: All workflow routes are handled here via lazy loading.
+        loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
+      },
+      {
         path: 'document-upload',
         // CORRECT: If document-upload is not a lazy module, define it here.
         // If it should be lazy loaded, use loadChildren instead of component.
