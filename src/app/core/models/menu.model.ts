@@ -24,6 +24,7 @@ export interface SubMenuItem {
 // src/app/modules/shared/models/menu.model.ts (Updated)
 
 export interface MenuGroup { // 🚨 RENAMED INTERFACE
+  isCollapsed?: boolean;
   group: string;
   separator: boolean;
   items: {

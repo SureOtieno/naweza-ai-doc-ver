@@ -1,15 +1,20 @@
 <div class="min-h-screen bg-gray-100 flex flex-col">
 
-  <app-header></app-header>
+  <app-header
+    [isMobile]="isMobileView"
+    (toggleSidebar)="toggleSidebar()">
+  </app-header>
 
   <div class="flex flex-1 pt-16">
 
-    <app-sidebar></app-sidebar>
+    <app-sidebar
+      [isMobile]="isMobileView"
+      [isSidebarOpen]="isSidebarOpen">
+    </app-sidebar>
 
-    <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 lg:p-8 ml-64">
-
+    <main class="flex-1 overflow-x-hidden overflow-y-auto text-sm lg:text-base"
+          [class.lg:ml-64]="!isMobileView">
       <router-outlet></router-outlet>
-
     </main>
 
   </div>

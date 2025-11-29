@@ -5,7 +5,7 @@ export class Menu {
   public static pages: MenuGroup[] = [
     // --- MAIN PRODUCTS/DASHBOARDS ---
     {
-      group: 'Application Core',
+      group: 'Dashboard',
       separator: true,
       items: [
         {
@@ -60,11 +60,11 @@ export class Menu {
           label: 'Audit Trail',
           route: '/audit-trail',
         },
-        {
-          icon: '👤',
-          label: 'User Settings',
-          route: '/settings/profile',
-        },
+        // {
+        //   icon: '👤',
+        //   label: 'User Settings',
+        //   route: '/settings/profile',
+        // },
       ],
     },
   ];

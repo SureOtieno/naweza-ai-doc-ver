@@ -1,6 +1,6 @@
 // src/app/modules/shared/components/header/header.component.ts
 
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import { NgIf } from '@angular/common';
 
@@ -13,9 +13,16 @@ import { NgIf } from '@angular/common';
 })
 export class HeaderComponent {
   // Replace with actual data from an Auth Service
-  userName: string = 'Verification User';
+  userName: string = 'Test User';
+  @Input() isMobile: boolean = false;
+  @Output() toggleSidebar = new EventEmitter<void>();
 
   constructor(private router: Router) { }
+
+  // Method to emit the toggle event
+  onToggle(): void {
+    this.toggleSidebar.emit();
+  }
 
   /** Placeholder for logging out the user */
   logout() {
@@ -25,3 +32,4 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 }
+
