@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {CameraSdkService} from '../../core/services/camera';
 // Angular CDK, etc., would be imported here if this were a functional module
 
 // --- DATA INTERFACES (Should ideally be in a models file) ---
@@ -21,7 +22,8 @@ export class DocumentUploadComponent implements OnInit {
   selectedFlow: FlowSummary | null = null;
   requiredDocuments: DocumentRequirement[] = [];
 
-  constructor() {}
+  constructor(private cameraSdk: CameraSdkService) {}
+
 
   ngOnInit(): void {
     // 🚨 Mock Data Initialization: Replace with a service call in a real application
@@ -56,7 +58,10 @@ export class DocumentUploadComponent implements OnInit {
         this.requiredDocuments = [
           { id: 101, documentType: 'National ID Card (Front)', isRequired: true, instructions: 'Ensure all four corners are visible and the image is clear.', isUploaded: false, hasError: false },
           { id: 102, documentType: 'National ID Card (Back)', isRequired: true, instructions: 'Ensure the back barcode and signature are readable.', isUploaded: false, hasError: false },
-          { id: 103, documentType: 'Proof of Address (Utility Bill)', isRequired: false, instructions: 'Optional. Must be dated within the last 90 days.', isUploaded: false, hasError: false },
+          { id: 103, documentType: 'KRA PIN', isRequired: false, instructions: 'Ensure the PIN no. is visible and the image is clear.', isUploaded: false, hasError: false },
+          { id: 104, documentType: 'Video Liveness Check', isRequired: true, instructions: 'Requires live capture via phone camera.', isUploaded: false, hasError: false },
+
+
         ];
         break;
       case 2: // High Risk Onboarding
@@ -100,21 +105,35 @@ export class DocumentUploadComponent implements OnInit {
    * Placeholder for launching the mobile camera or dedicated capture process.
    * This is where a third-party Capture SDK would be integrated.
    */
-  initiateCapture(doc: DocumentRequirement): void {
-    console.log(`Initiating guided camera capture for ${doc.documentType}...`);
-    // Placeholder logic for simulation:
-    alert(`Launching camera for: ${doc.documentType}.
-    In a real app, this launches the SDK with real-time quality checks.`);
+  async initiateCapture(doc: DocumentRequirement): Promise<void> {
+    try {
+      console.log(`Launching SDK for ${doc.documentType}...`);
 
-    // Simulate successful capture after delay
-    setTimeout(() => {
-      // You'd get a processed file/blob from the SDK here
+      const result = await this.cameraSdk.launchCamera({
+        documentType: doc.documentType,
+        quality: 'high',
+        crop: true,
+        torch: true
+      });
+
+      // Convert Blob to temporary URL so preview works
+      const blob = result.file;
+      const file = new File([blob], `${doc.documentType}.jpg`, { type: blob.type });
+
+      doc.file = file;
+      doc.previewUrl = URL.createObjectURL(file);
       doc.isUploaded = true;
       doc.hasError = false;
-      doc.previewUrl = 'https://via.placeholder.com/150?text=Captured'; // Mock image preview
-      console.log(`${doc.documentType} captured successfully.`);
-    }, 1000);
+
+      console.log(`${doc.documentType} captured successfully`);
+    }
+    catch (err) {
+      console.error('Camera capture error:', err);
+      doc.hasError = true;
+      doc.isUploaded = false;
+    }
   }
+
 
   /**
    * Checks if all required documents for the flow have been uploaded.

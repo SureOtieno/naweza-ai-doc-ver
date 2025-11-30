@@ -1,0 +1,14 @@
+<div class="camera-container">
+  <video #videoElement autoplay muted class="w-full h-full object-cover"></video>
+
+  <div class="capture-overlay">
+    <p class="text-white text-center">Center your document within the frame</p>
+  </div>
+
+  <button (click)="captureImage()"
+          class="capture-button">
+    Capture
+  </button>
+</div>
+
+<canvas #canvasElement style="display: none;"></canvas>
